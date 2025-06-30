@@ -24,7 +24,7 @@ import { SendParams, SendSingleTransactionResult, SendAtomicTransactionComposerR
 import { Address, encodeAddress, modelsv2, OnApplicationComplete, Transaction, TransactionSigner } from 'algosdk'
 import SimulateResponse = modelsv2.SimulateResponse
 
-export const APP_SPEC: Arc56Contract = {"name":"PersonalBank","structs":{},"methods":[{"name":"deposit","args":[{"type":"pay","name":"payTxn","desc":"- The payment transaction containing deposit information"}],"returns":{"type":"uint64","desc":"The total amount deposited by the sender after this transaction"},"actions":{"create":[],"call":["NoOp"]},"readonly":false,"desc":"Deposits funds into the personal bank.\nThe deposit amount is recorded in the sender's BoxMap.\nIf the sender already has a deposit, the amount is added to their existing balance.","events":[],"recommendations":{}},{"name":"withdraw","args":[],"returns":{"type":"uint64","desc":"The amount withdrawn (as UInt64)"},"actions":{"create":[],"call":["NoOp"]},"readonly":false,"desc":"Withdraws all funds from the sender's account.\nThis method transfers the entire balance of the sender's account back to them,\nand resets their balance to zero. The sender must have a deposit to withdraw.","events":[],"recommendations":{}}],"arcs":[22,28],"networks":{},"state":{"schema":{"global":{"ints":0,"bytes":0},"local":{"ints":0,"bytes":0}},"keys":{"global":{},"local":{},"box":{}},"maps":{"global":{},"local":{},"box":{"depositors":{"keyType":"address","valueType":"uint64","prefix":"ZGVwb3NpdG9ycw=="}}}},"bareActions":{"create":["NoOp"],"call":[]},"sourceInfo":{"approval":{"sourceInfo":[{"pc":[144,156],"errorMessage":"Box must have value"},{"pc":[122],"errorMessage":"Deposit amount must be greater than zero"},{"pc":[178],"errorMessage":"No deposits found for this account"},{"pc":[54,71],"errorMessage":"OnCompletion is not NoOp"},{"pc":[116],"errorMessage":"Receiver must be the contract address"},{"pc":[103],"errorMessage":"can only call when creating"},{"pc":[57,74],"errorMessage":"can only call when not creating"},{"pc":[84],"errorMessage":"transaction type is pay"}],"pcOffsetMethod":"none"},"clear":{"sourceInfo":[],"pcOffsetMethod":"none"}},"source":{"approval":"I3ByYWdtYSB2ZXJzaW9uIDEwCiNwcmFnbWEgdHlwZXRyYWNrIGZhbHNlCgovLyBAYWxnb3JhbmRmb3VuZGF0aW9uL2FsZ29yYW5kLXR5cGVzY3JpcHQvYXJjNC9pbmRleC5kLnRzOjpDb250cmFjdC5hcHByb3ZhbFByb2dyYW0oKSAtPiB1aW50NjQ6Cm1haW46CiAgICBpbnRjYmxvY2sgMSAwCiAgICBieXRlY2Jsb2NrICJkZXBvc2l0b3JzIiAweDE1MWY3Yzc1CiAgICAvLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjE0CiAgICAvLyBleHBvcnQgY2xhc3MgUGVyc29uYWxCYW5rIGV4dGVuZHMgQ29udHJhY3QgewogICAgdHhuIE51bUFwcEFyZ3MKICAgIGJ6IG1haW5fYmFyZV9yb3V0aW5nQDcKICAgIHB1c2hieXRlc3MgMHgzMjk4ZTdjMCAweDNhMzk1ZjJiIC8vIG1ldGhvZCAiZGVwb3NpdChwYXkpdWludDY0IiwgbWV0aG9kICJ3aXRoZHJhdygpdWludDY0IgogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMAogICAgbWF0Y2ggbWFpbl9kZXBvc2l0X3JvdXRlQDMgbWFpbl93aXRoZHJhd19yb3V0ZUA0CgptYWluX2FmdGVyX2lmX2Vsc2VAMTE6CiAgICAvLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjE0CiAgICAvLyBleHBvcnQgY2xhc3MgUGVyc29uYWxCYW5rIGV4dGVuZHMgQ29udHJhY3QgewogICAgaW50Y18xIC8vIDAKICAgIHJldHVybgoKbWFpbl93aXRoZHJhd19yb3V0ZUA0OgogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czo0NwogICAgLy8gQGFiaW1ldGhvZCgpCiAgICB0eG4gT25Db21wbGV0aW9uCiAgICAhCiAgICBhc3NlcnQgLy8gT25Db21wbGV0aW9uIGlzIG5vdCBOb09wCiAgICB0eG4gQXBwbGljYXRpb25JRAogICAgYXNzZXJ0IC8vIGNhbiBvbmx5IGNhbGwgd2hlbiBub3QgY3JlYXRpbmcKICAgIGNhbGxzdWIgd2l0aGRyYXcKICAgIGl0b2IKICAgIGJ5dGVjXzEgLy8gMHgxNTFmN2M3NQogICAgc3dhcAogICAgY29uY2F0CiAgICBsb2cKICAgIGludGNfMCAvLyAxCiAgICByZXR1cm4KCm1haW5fZGVwb3NpdF9yb3V0ZUAzOgogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czoyNAogICAgLy8gQGFiaW1ldGhvZCgpCiAgICB0eG4gT25Db21wbGV0aW9uCiAgICAhCiAgICBhc3NlcnQgLy8gT25Db21wbGV0aW9uIGlzIG5vdCBOb09wCiAgICB0eG4gQXBwbGljYXRpb25JRAogICAgYXNzZXJ0IC8vIGNhbiBvbmx5IGNhbGwgd2hlbiBub3QgY3JlYXRpbmcKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6MTQKICAgIC8vIGV4cG9ydCBjbGFzcyBQZXJzb25hbEJhbmsgZXh0ZW5kcyBDb250cmFjdCB7CiAgICB0eG4gR3JvdXBJbmRleAogICAgaW50Y18wIC8vIDEKICAgIC0KICAgIGR1cAogICAgZ3R4bnMgVHlwZUVudW0KICAgIGludGNfMCAvLyBwYXkKICAgID09CiAgICBhc3NlcnQgLy8gdHJhbnNhY3Rpb24gdHlwZSBpcyBwYXkKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6MjQKICAgIC8vIEBhYmltZXRob2QoKQogICAgY2FsbHN1YiBkZXBvc2l0CiAgICBpdG9iCiAgICBieXRlY18xIC8vIDB4MTUxZjdjNzUKICAgIHN3YXAKICAgIGNvbmNhdAogICAgbG9nCiAgICBpbnRjXzAgLy8gMQogICAgcmV0dXJuCgptYWluX2JhcmVfcm91dGluZ0A3OgogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czoxNAogICAgLy8gZXhwb3J0IGNsYXNzIFBlcnNvbmFsQmFuayBleHRlbmRzIENvbnRyYWN0IHsKICAgIHR4biBPbkNvbXBsZXRpb24KICAgIGJueiBtYWluX2FmdGVyX2lmX2Vsc2VAMTEKICAgIHR4biBBcHBsaWNhdGlvbklECiAgICAhCiAgICBhc3NlcnQgLy8gY2FuIG9ubHkgY2FsbCB3aGVuIGNyZWF0aW5nCiAgICBpbnRjXzAgLy8gMQogICAgcmV0dXJuCgoKLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czo6UGVyc29uYWxCYW5rLmRlcG9zaXQocGF5VHhuOiB1aW50NjQpIC0+IHVpbnQ2NDoKZGVwb3NpdDoKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6MjQtMjUKICAgIC8vIEBhYmltZXRob2QoKQogICAgLy8gcHVibGljIGRlcG9zaXQocGF5VHhuOiBndHhuLlBheW1lbnRUeG4pIHsKICAgIHByb3RvIDEgMQogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czoyNgogICAgLy8gYXNzZXJ0KHBheVR4bi5yZWNlaXZlciA9PT0gR2xvYmFsLmN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MsICdSZWNlaXZlciBtdXN0IGJlIHRoZSBjb250cmFjdCBhZGRyZXNzJykKICAgIGZyYW1lX2RpZyAtMQogICAgZ3R4bnMgUmVjZWl2ZXIKICAgIGdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCiAgICA9PQogICAgYXNzZXJ0IC8vIFJlY2VpdmVyIG11c3QgYmUgdGhlIGNvbnRyYWN0IGFkZHJlc3MKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6MjcKICAgIC8vIGFzc2VydChwYXlUeG4uYW1vdW50ID4gMCwgJ0RlcG9zaXQgYW1vdW50IG11c3QgYmUgZ3JlYXRlciB0aGFuIHplcm8nKQogICAgZnJhbWVfZGlnIC0xCiAgICBndHhucyBBbW91bnQKICAgIGR1cAogICAgYXNzZXJ0IC8vIERlcG9zaXQgYW1vdW50IG11c3QgYmUgZ3JlYXRlciB0aGFuIHplcm8KICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6MzAKICAgIC8vIGNvbnN0IGlzRGVwb3NpdGVkID0gdGhpcy5kZXBvc2l0b3JzKHBheVR4bi5zZW5kZXIpLmV4aXN0cwogICAgZnJhbWVfZGlnIC0xCiAgICBndHhucyBTZW5kZXIKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6MTUKICAgIC8vIHB1YmxpYyBkZXBvc2l0b3JzID0gQm94TWFwPEFjY291bnQsIHVpbnQ2ND4oeyBrZXlQcmVmaXg6ICdkZXBvc2l0b3JzJyB9KQogICAgYnl0ZWNfMCAvLyAiZGVwb3NpdG9ycyIKICAgIHN3YXAKICAgIGNvbmNhdAogICAgZHVwCiAgICAvLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjMwCiAgICAvLyBjb25zdCBpc0RlcG9zaXRlZCA9IHRoaXMuZGVwb3NpdG9ycyhwYXlUeG4uc2VuZGVyKS5leGlzdHMKICAgIGJveF9sZW4KICAgIGJ1cnkgMQogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czozMgogICAgLy8gaWYgKGlzRGVwb3NpdGVkKSB7CiAgICBieiBkZXBvc2l0X2Vsc2VfYm9keUAyCiAgICAvLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjMzCiAgICAvLyB0aGlzLmRlcG9zaXRvcnMocGF5VHhuLnNlbmRlcikudmFsdWUgKz0gZGVwb3NpdEFtb3VudAogICAgZnJhbWVfZGlnIDEKICAgIGR1cAogICAgYm94X2dldAogICAgc3dhcAogICAgYnRvaQogICAgc3dhcAogICAgYXNzZXJ0IC8vIEJveCBtdXN0IGhhdmUgdmFsdWUKICAgIGZyYW1lX2RpZyAwCiAgICArCiAgICBpdG9iCiAgICBib3hfcHV0CgpkZXBvc2l0X2FmdGVyX2lmX2Vsc2VAMzoKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6MzgKICAgIC8vIHJldHVybiB0aGlzLmRlcG9zaXRvcnMocGF5VHhuLnNlbmRlcikudmFsdWUKICAgIGZyYW1lX2RpZyAxCiAgICBib3hfZ2V0CiAgICBzd2FwCiAgICBidG9pCiAgICBzd2FwCiAgICBhc3NlcnQgLy8gQm94IG11c3QgaGF2ZSB2YWx1ZQogICAgZnJhbWVfYnVyeSAwCiAgICByZXRzdWIKCmRlcG9zaXRfZWxzZV9ib2R5QDI6CiAgICAvLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjM1CiAgICAvLyB0aGlzLmRlcG9zaXRvcnMocGF5VHhuLnNlbmRlcikudmFsdWUgPSBkZXBvc2l0QW1vdW50CiAgICBmcmFtZV9kaWcgMAogICAgaXRvYgogICAgZnJhbWVfZGlnIDEKICAgIHN3YXAKICAgIGJveF9wdXQKICAgIGIgZGVwb3NpdF9hZnRlcl9pZl9lbHNlQDMKCgovLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjpQZXJzb25hbEJhbmsud2l0aGRyYXcoKSAtPiB1aW50NjQ6CndpdGhkcmF3OgogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czoxNQogICAgLy8gcHVibGljIGRlcG9zaXRvcnMgPSBCb3hNYXA8QWNjb3VudCwgdWludDY0Pih7IGtleVByZWZpeDogJ2RlcG9zaXRvcnMnIH0pCiAgICBieXRlY18wIC8vICJkZXBvc2l0b3JzIgogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czo0OQogICAgLy8gY29uc3QgW2RlcG9zaXRlZEFtb3VudCwgaXNEZXBvc2l0ZWRdID0gdGhpcy5kZXBvc2l0b3JzKFR4bi5zZW5kZXIpLm1heWJlKCkKICAgIHR4biBTZW5kZXIKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6MTUKICAgIC8vIHB1YmxpYyBkZXBvc2l0b3JzID0gQm94TWFwPEFjY291bnQsIHVpbnQ2ND4oeyBrZXlQcmVmaXg6ICdkZXBvc2l0b3JzJyB9KQogICAgY29uY2F0CiAgICAvLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjQ5CiAgICAvLyBjb25zdCBbZGVwb3NpdGVkQW1vdW50LCBpc0RlcG9zaXRlZF0gPSB0aGlzLmRlcG9zaXRvcnMoVHhuLnNlbmRlcikubWF5YmUoKQogICAgYm94X2dldAogICAgc3dhcAogICAgYnRvaQogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czo1MAogICAgLy8gYXNzZXJ0KGlzRGVwb3NpdGVkLCAnTm8gZGVwb3NpdHMgZm91bmQgZm9yIHRoaXMgYWNjb3VudCcpCiAgICBzd2FwCiAgICBhc3NlcnQgLy8gTm8gZGVwb3NpdHMgZm91bmQgZm9yIHRoaXMgYWNjb3VudAogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czo1Mi01OAogICAgLy8gY29uc3QgcmVzdWx0ID0gaXR4bgogICAgLy8gICAucGF5bWVudCh7CiAgICAvLyAgICAgcmVjZWl2ZXI6IFR4bi5zZW5kZXIsCiAgICAvLyAgICAgYW1vdW50OiBkZXBvc2l0ZWRBbW91bnQsCiAgICAvLyAgICAgZmVlOiAwLAogICAgLy8gICB9KQogICAgLy8gICAuc3VibWl0KCkKICAgIGl0eG5fYmVnaW4KICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6NTQKICAgIC8vIHJlY2VpdmVyOiBUeG4uc2VuZGVyLAogICAgdHhuIFNlbmRlcgogICAgaXR4bl9maWVsZCBSZWNlaXZlcgogICAgaXR4bl9maWVsZCBBbW91bnQKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6NTItNTcKICAgIC8vIGNvbnN0IHJlc3VsdCA9IGl0eG4KICAgIC8vICAgLnBheW1lbnQoewogICAgLy8gICAgIHJlY2VpdmVyOiBUeG4uc2VuZGVyLAogICAgLy8gICAgIGFtb3VudDogZGVwb3NpdGVkQW1vdW50LAogICAgLy8gICAgIGZlZTogMCwKICAgIC8vICAgfSkKICAgIGludGNfMCAvLyAxCiAgICBpdHhuX2ZpZWxkIFR5cGVFbnVtCiAgICAvLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjU2CiAgICAvLyBmZWU6IDAsCiAgICBpbnRjXzEgLy8gMAogICAgaXR4bl9maWVsZCBGZWUKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6NTItNTgKICAgIC8vIGNvbnN0IHJlc3VsdCA9IGl0eG4KICAgIC8vICAgLnBheW1lbnQoewogICAgLy8gICAgIHJlY2VpdmVyOiBUeG4uc2VuZGVyLAogICAgLy8gICAgIGFtb3VudDogZGVwb3NpdGVkQW1vdW50LAogICAgLy8gICAgIGZlZTogMCwKICAgIC8vICAgfSkKICAgIC8vICAgLnN1Ym1pdCgpCiAgICBpdHhuX3N1Ym1pdAogICAgaXR4biBBbW91bnQKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6MTUKICAgIC8vIHB1YmxpYyBkZXBvc2l0b3JzID0gQm94TWFwPEFjY291bnQsIHVpbnQ2ND4oeyBrZXlQcmVmaXg6ICdkZXBvc2l0b3JzJyB9KQogICAgYnl0ZWNfMCAvLyAiZGVwb3NpdG9ycyIKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6NjAKICAgIC8vIHRoaXMuZGVwb3NpdG9ycyhUeG4uc2VuZGVyKS52YWx1ZSA9IDAKICAgIHR4biBTZW5kZXIKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6MTUKICAgIC8vIHB1YmxpYyBkZXBvc2l0b3JzID0gQm94TWFwPEFjY291bnQsIHVpbnQ2ND4oeyBrZXlQcmVmaXg6ICdkZXBvc2l0b3JzJyB9KQogICAgY29uY2F0CiAgICAvLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjYwCiAgICAvLyB0aGlzLmRlcG9zaXRvcnMoVHhuLnNlbmRlcikudmFsdWUgPSAwCiAgICBpbnRjXzEgLy8gMAogICAgaXRvYgogICAgYm94X3B1dAogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czo2MgogICAgLy8gcmV0dXJuIHJlc3VsdC5hbW91bnQKICAgIHJldHN1Ygo=","clear":"I3ByYWdtYSB2ZXJzaW9uIDEwCiNwcmFnbWEgdHlwZXRyYWNrIGZhbHNlCgovLyBAYWxnb3JhbmRmb3VuZGF0aW9uL2FsZ29yYW5kLXR5cGVzY3JpcHQvYmFzZS1jb250cmFjdC5kLnRzOjpCYXNlQ29udHJhY3QuY2xlYXJTdGF0ZVByb2dyYW0oKSAtPiB1aW50NjQ6Cm1haW46CiAgICBwdXNoaW50IDEgLy8gMQogICAgcmV0dXJuCg=="},"byteCode":{"approval":"CiACAQAmAgpkZXBvc2l0b3JzBBUffHUxG0EAQ4ICBDKY58AEOjlfKzYaAI4CABMAAiNDMRkURDEYRIgAbRYpTFCwIkMxGRREMRhEMRYiCUk4ECISRIgAEhYpTFCwIkMxGUD/zTEYFEQiQ4oBAYv/OAcyChJEi/84CElEi/84AChMUEm9RQFBABeLAUm+TBdMRIsACBa/iwG+TBdMRIwAiYsAFosBTL9C/+woMQBQvkwXTESxMQCyB7IIIrIQI7IBs7QIKDEAUCMWv4k=","clear":"CoEBQw=="},"compilerInfo":{"compiler":"puya","compilerVersion":{"major":4,"minor":7,"patch":0}},"events":[],"templateVariables":{}} as unknown as Arc56Contract
+export const APP_SPEC: Arc56Contract = {"name":"PersonalBank","structs":{},"methods":[{"name":"deposit","args":[{"type":"string","name":"githubHandle"}],"returns":{"type":"void"},"actions":{"create":[],"call":["NoOp"]},"readonly":false,"desc":"Creates a box named \"github\" and stores the GitHub handle in it\nOnly works if the box reference is declared in the transaction","events":[],"recommendations":{}}],"arcs":[22,28],"networks":{},"state":{"schema":{"global":{"ints":0,"bytes":0},"local":{"ints":0,"bytes":0}},"keys":{"global":{},"local":{},"box":{}},"maps":{"global":{},"local":{},"box":{}}},"bareActions":{"create":["NoOp"],"call":[]},"sourceInfo":{"approval":{"sourceInfo":[{"pc":[37],"errorMessage":"OnCompletion is not NoOp"},{"pc":[60],"errorMessage":"can only call when creating"},{"pc":[40],"errorMessage":"can only call when not creating"}],"pcOffsetMethod":"none"},"clear":{"sourceInfo":[],"pcOffsetMethod":"none"}},"source":{"approval":"I3ByYWdtYSB2ZXJzaW9uIDEwCiNwcmFnbWEgdHlwZXRyYWNrIGZhbHNlCgovLyBAYWxnb3JhbmRmb3VuZGF0aW9uL2FsZ29yYW5kLXR5cGVzY3JpcHQvYXJjNC9pbmRleC5kLnRzOjpDb250cmFjdC5hcHByb3ZhbFByb2dyYW0oKSAtPiB1aW50NjQ6Cm1haW46CiAgICBpbnRjYmxvY2sgMCAxCiAgICBieXRlY2Jsb2NrICJnaXRodWIiCiAgICAvLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjMKICAgIC8vIGV4cG9ydCBjbGFzcyBQZXJzb25hbEJhbmsgZXh0ZW5kcyBDb250cmFjdCB7CiAgICB0eG4gTnVtQXBwQXJncwogICAgYnogbWFpbl9iYXJlX3JvdXRpbmdANgogICAgcHVzaGJ5dGVzIDB4MWY5Y2NhM2QgLy8gbWV0aG9kICJkZXBvc2l0KHN0cmluZyl2b2lkIgogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMAogICAgbWF0Y2ggbWFpbl9kZXBvc2l0X3JvdXRlQDMKCm1haW5fYWZ0ZXJfaWZfZWxzZUAxMDoKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6MwogICAgLy8gZXhwb3J0IGNsYXNzIFBlcnNvbmFsQmFuayBleHRlbmRzIENvbnRyYWN0IHsKICAgIGludGNfMCAvLyAwCiAgICByZXR1cm4KCm1haW5fZGVwb3NpdF9yb3V0ZUAzOgogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czo4CiAgICAvLyBAYWJpbWV0aG9kKCkKICAgIHR4biBPbkNvbXBsZXRpb24KICAgICEKICAgIGFzc2VydCAvLyBPbkNvbXBsZXRpb24gaXMgbm90IE5vT3AKICAgIHR4biBBcHBsaWNhdGlvbklECiAgICBhc3NlcnQgLy8gY2FuIG9ubHkgY2FsbCB3aGVuIG5vdCBjcmVhdGluZwogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czozCiAgICAvLyBleHBvcnQgY2xhc3MgUGVyc29uYWxCYW5rIGV4dGVuZHMgQ29udHJhY3QgewogICAgdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQogICAgZXh0cmFjdCAyIDAKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6OAogICAgLy8gQGFiaW1ldGhvZCgpCiAgICBjYWxsc3ViIGRlcG9zaXQKICAgIGludGNfMSAvLyAxCiAgICByZXR1cm4KCm1haW5fYmFyZV9yb3V0aW5nQDY6CiAgICAvLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjMKICAgIC8vIGV4cG9ydCBjbGFzcyBQZXJzb25hbEJhbmsgZXh0ZW5kcyBDb250cmFjdCB7CiAgICB0eG4gT25Db21wbGV0aW9uCiAgICBibnogbWFpbl9hZnRlcl9pZl9lbHNlQDEwCiAgICB0eG4gQXBwbGljYXRpb25JRAogICAgIQogICAgYXNzZXJ0IC8vIGNhbiBvbmx5IGNhbGwgd2hlbiBjcmVhdGluZwogICAgaW50Y18xIC8vIDEKICAgIHJldHVybgoKCi8vIHNtYXJ0X2NvbnRyYWN0cy9wZXJzb25hbF9iYW5rL2NvbnRyYWN0LmFsZ28udHM6OlBlcnNvbmFsQmFuay5kZXBvc2l0KGdpdGh1YkhhbmRsZTogYnl0ZXMpIC0+IHZvaWQ6CmRlcG9zaXQ6CiAgICAvLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjgtOQogICAgLy8gQGFiaW1ldGhvZCgpCiAgICAvLyBwdWJsaWMgZGVwb3NpdChnaXRodWJIYW5kbGU6IHN0cmluZykgewogICAgcHJvdG8gMSAwCiAgICAvLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjEwCiAgICAvLyBjb25zdCBib3ggPSBCb3hSZWYoeyBrZXk6ICdnaXRodWInIH0pCiAgICBieXRlY18wIC8vICJnaXRodWIiCiAgICAvLyBzbWFydF9jb250cmFjdHMvcGVyc29uYWxfYmFuay9jb250cmFjdC5hbGdvLnRzOjEzCiAgICAvLyBib3guY3JlYXRlKHsgc2l6ZTogMzIgfSkKICAgIHB1c2hpbnQgMzIgLy8gMzIKICAgIGJveF9jcmVhdGUKICAgIHBvcAogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czoxMAogICAgLy8gY29uc3QgYm94ID0gQm94UmVmKHsga2V5OiAnZ2l0aHViJyB9KQogICAgYnl0ZWNfMCAvLyAiZ2l0aHViIgogICAgLy8gc21hcnRfY29udHJhY3RzL3BlcnNvbmFsX2JhbmsvY29udHJhY3QuYWxnby50czoxNgogICAgLy8gYm94LnJlcGxhY2UoMCwgQnl0ZXMoZ2l0aHViSGFuZGxlKSkKICAgIGludGNfMCAvLyAwCiAgICBmcmFtZV9kaWcgLTEKICAgIGJveF9yZXBsYWNlCiAgICByZXRzdWIK","clear":"I3ByYWdtYSB2ZXJzaW9uIDEwCiNwcmFnbWEgdHlwZXRyYWNrIGZhbHNlCgovLyBAYWxnb3JhbmRmb3VuZGF0aW9uL2FsZ29yYW5kLXR5cGVzY3JpcHQvYmFzZS1jb250cmFjdC5kLnRzOjpCYXNlQ29udHJhY3QuY2xlYXJTdGF0ZVByb2dyYW0oKSAtPiB1aW50NjQ6Cm1haW46CiAgICBwdXNoaW50IDEgLy8gMQogICAgcmV0dXJuCg=="},"byteCode":{"approval":"CiACAAEmAQZnaXRodWIxG0EAIYAEH5zKPTYaAI4BAAIiQzEZFEQxGEQ2GgFXAgCIAA0jQzEZQP/nMRgURCNDigEAKIEguUgoIov/u4k=","clear":"CoEBQw=="},"compilerInfo":{"compiler":"puya","compilerVersion":{"major":4,"minor":7,"patch":0}},"events":[],"templateVariables":{}} as unknown as Arc56Contract
 
 /**
  * A state record containing binary data
@@ -71,20 +71,15 @@ export type PersonalBankArgs = {
    * The object representation of the arguments for each method
    */
   obj: {
-    'deposit(pay)uint64': {
-      /**
-       * - The payment transaction containing deposit information
-       */
-      payTxn: AppMethodCallTransactionArgument
+    'deposit(string)void': {
+      githubHandle: string
     }
-    'withdraw()uint64': Record<string, never>
   }
   /**
    * The tuple representation of the arguments for each method
    */
   tuple: {
-    'deposit(pay)uint64': [payTxn: AppMethodCallTransactionArgument]
-    'withdraw()uint64': []
+    'deposit(string)void': [githubHandle: string]
   }
 }
 
@@ -92,8 +87,7 @@ export type PersonalBankArgs = {
  * The return type for each method
  */
 export type PersonalBankReturns = {
-  'deposit(pay)uint64': bigint
-  'withdraw()uint64': bigint
+  'deposit(string)void': void
 }
 
 /**
@@ -104,33 +98,11 @@ export type PersonalBankTypes = {
    * Maps method signatures / names to their argument and return types.
    */
   methods:
-    & Record<'deposit(pay)uint64' | 'deposit', {
-      argsObj: PersonalBankArgs['obj']['deposit(pay)uint64']
-      argsTuple: PersonalBankArgs['tuple']['deposit(pay)uint64']
-      /**
-       * The total amount deposited by the sender after this transaction
-       */
-      returns: PersonalBankReturns['deposit(pay)uint64']
+    & Record<'deposit(string)void' | 'deposit', {
+      argsObj: PersonalBankArgs['obj']['deposit(string)void']
+      argsTuple: PersonalBankArgs['tuple']['deposit(string)void']
+      returns: PersonalBankReturns['deposit(string)void']
     }>
-    & Record<'withdraw()uint64' | 'withdraw', {
-      argsObj: PersonalBankArgs['obj']['withdraw()uint64']
-      argsTuple: PersonalBankArgs['tuple']['withdraw()uint64']
-      /**
-       * The amount withdrawn (as UInt64)
-       */
-      returns: PersonalBankReturns['withdraw()uint64']
-    }>
-  /**
-   * Defines the shape of the state of the application.
-   */
-  state: {
-    box: {
-      keys: {}
-      maps: {
-        depositors: Map<string, bigint>
-      }
-    }
-  }
 }
 
 /**
@@ -160,11 +132,6 @@ export type MethodArgs<TSignature extends PersonalBankSignatures> = PersonalBank
  */
 export type MethodReturn<TSignature extends PersonalBankSignatures> = PersonalBankTypes['methods'][TSignature]['returns']
 
-/**
- * Defines the shape of the keyed box state of the application.
- */
-export type BoxKeysState = PersonalBankTypes['state']['box']['keys']
-
 
 /**
  * Defines supported create method params for this smart contract
@@ -187,39 +154,20 @@ export type PersonalBankDeployParams = Expand<Omit<AppFactoryDeployParams, 'crea
  */
 export abstract class PersonalBankParamsFactory {
   /**
-   * Constructs a no op call for the deposit(pay)uint64 ABI method
+   * Constructs a no op call for the deposit(string)void ABI method
    *
-  * Deposits funds into the personal bank.
-  The deposit amount is recorded in the sender's BoxMap.
-  If the sender already has a deposit, the amount is added to their existing balance.
+  * Creates a box named "github" and stores the GitHub handle in it
+  Only works if the box reference is declared in the transaction
 
    *
    * @param params Parameters for the call
    * @returns An `AppClientMethodCallParams` object for the call
    */
-  static deposit(params: CallParams<PersonalBankArgs['obj']['deposit(pay)uint64'] | PersonalBankArgs['tuple']['deposit(pay)uint64']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete {
+  static deposit(params: CallParams<PersonalBankArgs['obj']['deposit(string)void'] | PersonalBankArgs['tuple']['deposit(string)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete {
     return {
       ...params,
-      method: 'deposit(pay)uint64' as const,
-      args: Array.isArray(params.args) ? params.args : [params.args.payTxn],
-    }
-  }
-  /**
-   * Constructs a no op call for the withdraw()uint64 ABI method
-   *
-  * Withdraws all funds from the sender's account.
-  This method transfers the entire balance of the sender's account back to them,
-  and resets their balance to zero. The sender must have a deposit to withdraw.
-
-   *
-   * @param params Parameters for the call
-   * @returns An `AppClientMethodCallParams` object for the call
-   */
-  static withdraw(params: CallParams<PersonalBankArgs['obj']['withdraw()uint64'] | PersonalBankArgs['tuple']['withdraw()uint64']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete {
-    return {
-      ...params,
-      method: 'withdraw()uint64' as const,
-      args: Array.isArray(params.args) ? params.args : [],
+      method: 'deposit(string)void' as const,
+      args: Array.isArray(params.args) ? params.args : [params.args.githubHandle],
     }
   }
 }
@@ -463,33 +411,17 @@ export class PersonalBankClient {
     },
 
     /**
-     * Makes a call to the PersonalBank smart contract using the `deposit(pay)uint64` ABI method.
+     * Makes a call to the PersonalBank smart contract using the `deposit(string)void` ABI method.
      *
-    * Deposits funds into the personal bank.
-    The deposit amount is recorded in the sender's BoxMap.
-    If the sender already has a deposit, the amount is added to their existing balance.
+    * Creates a box named "github" and stores the GitHub handle in it
+    Only works if the box reference is declared in the transaction
 
      *
      * @param params The params for the smart contract call
-     * @returns The call params: The total amount deposited by the sender after this transaction
+     * @returns The call params
      */
-    deposit: (params: CallParams<PersonalBankArgs['obj']['deposit(pay)uint64'] | PersonalBankArgs['tuple']['deposit(pay)uint64']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+    deposit: (params: CallParams<PersonalBankArgs['obj']['deposit(string)void'] | PersonalBankArgs['tuple']['deposit(string)void']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       return this.appClient.params.call(PersonalBankParamsFactory.deposit(params))
-    },
-
-    /**
-     * Makes a call to the PersonalBank smart contract using the `withdraw()uint64` ABI method.
-     *
-    * Withdraws all funds from the sender's account.
-    This method transfers the entire balance of the sender's account back to them,
-    and resets their balance to zero. The sender must have a deposit to withdraw.
-
-     *
-     * @param params The params for the smart contract call
-     * @returns The call params: The amount withdrawn (as UInt64)
-     */
-    withdraw: (params: CallParams<PersonalBankArgs['obj']['withdraw()uint64'] | PersonalBankArgs['tuple']['withdraw()uint64']> & {onComplete?: OnApplicationComplete.NoOpOC} = {args: []}) => {
-      return this.appClient.params.call(PersonalBankParamsFactory.withdraw(params))
     },
 
   }
@@ -509,33 +441,17 @@ export class PersonalBankClient {
     },
 
     /**
-     * Makes a call to the PersonalBank smart contract using the `deposit(pay)uint64` ABI method.
+     * Makes a call to the PersonalBank smart contract using the `deposit(string)void` ABI method.
      *
-    * Deposits funds into the personal bank.
-    The deposit amount is recorded in the sender's BoxMap.
-    If the sender already has a deposit, the amount is added to their existing balance.
+    * Creates a box named "github" and stores the GitHub handle in it
+    Only works if the box reference is declared in the transaction
 
      *
      * @param params The params for the smart contract call
-     * @returns The call transaction: The total amount deposited by the sender after this transaction
+     * @returns The call transaction
      */
-    deposit: (params: CallParams<PersonalBankArgs['obj']['deposit(pay)uint64'] | PersonalBankArgs['tuple']['deposit(pay)uint64']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+    deposit: (params: CallParams<PersonalBankArgs['obj']['deposit(string)void'] | PersonalBankArgs['tuple']['deposit(string)void']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       return this.appClient.createTransaction.call(PersonalBankParamsFactory.deposit(params))
-    },
-
-    /**
-     * Makes a call to the PersonalBank smart contract using the `withdraw()uint64` ABI method.
-     *
-    * Withdraws all funds from the sender's account.
-    This method transfers the entire balance of the sender's account back to them,
-    and resets their balance to zero. The sender must have a deposit to withdraw.
-
-     *
-     * @param params The params for the smart contract call
-     * @returns The call transaction: The amount withdrawn (as UInt64)
-     */
-    withdraw: (params: CallParams<PersonalBankArgs['obj']['withdraw()uint64'] | PersonalBankArgs['tuple']['withdraw()uint64']> & {onComplete?: OnApplicationComplete.NoOpOC} = {args: []}) => {
-      return this.appClient.createTransaction.call(PersonalBankParamsFactory.withdraw(params))
     },
 
   }
@@ -555,35 +471,18 @@ export class PersonalBankClient {
     },
 
     /**
-     * Makes a call to the PersonalBank smart contract using the `deposit(pay)uint64` ABI method.
+     * Makes a call to the PersonalBank smart contract using the `deposit(string)void` ABI method.
      *
-    * Deposits funds into the personal bank.
-    The deposit amount is recorded in the sender's BoxMap.
-    If the sender already has a deposit, the amount is added to their existing balance.
+    * Creates a box named "github" and stores the GitHub handle in it
+    Only works if the box reference is declared in the transaction
 
      *
      * @param params The params for the smart contract call
-     * @returns The call result: The total amount deposited by the sender after this transaction
+     * @returns The call result
      */
-    deposit: async (params: CallParams<PersonalBankArgs['obj']['deposit(pay)uint64'] | PersonalBankArgs['tuple']['deposit(pay)uint64']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+    deposit: async (params: CallParams<PersonalBankArgs['obj']['deposit(string)void'] | PersonalBankArgs['tuple']['deposit(string)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(PersonalBankParamsFactory.deposit(params))
-      return {...result, return: result.return as unknown as (undefined | PersonalBankReturns['deposit(pay)uint64'])}
-    },
-
-    /**
-     * Makes a call to the PersonalBank smart contract using the `withdraw()uint64` ABI method.
-     *
-    * Withdraws all funds from the sender's account.
-    This method transfers the entire balance of the sender's account back to them,
-    and resets their balance to zero. The sender must have a deposit to withdraw.
-
-     *
-     * @param params The params for the smart contract call
-     * @returns The call result: The amount withdrawn (as UInt64)
-     */
-    withdraw: async (params: CallParams<PersonalBankArgs['obj']['withdraw()uint64'] | PersonalBankArgs['tuple']['withdraw()uint64']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC} = {args: []}) => {
-      const result = await this.appClient.send.call(PersonalBankParamsFactory.withdraw(params))
-      return {...result, return: result.return as unknown as (undefined | PersonalBankReturns['withdraw()uint64'])}
+      return {...result, return: result.return as unknown as (undefined | PersonalBankReturns['deposit(string)void'])}
     },
 
   }
@@ -602,32 +501,6 @@ export class PersonalBankClient {
    * Methods to access state for the current PersonalBank app
    */
   state = {
-    /**
-     * Methods to access box state for the current PersonalBank app
-     */
-    box: {
-      /**
-       * Get all current keyed values from box state
-       */
-      getAll: async (): Promise<Partial<Expand<BoxKeysState>>> => {
-        const result = await this.appClient.state.box.getAll()
-        return {
-        }
-      },
-      /**
-       * Get values from the depositors map in box state
-       */
-      depositors: {
-        /**
-         * Get all current values of the depositors map in box state
-         */
-        getMap: async (): Promise<Map<string, bigint>> => { return (await this.appClient.state.box.getMap("depositors")) as Map<string, bigint> },
-        /**
-         * Get a current value of the depositors map by key from box state
-         */
-        value: async (key: string): Promise<bigint | undefined> => { return await this.appClient.state.box.getMapValue("depositors", key) as bigint | undefined },
-      },
-    },
   }
 
   public newGroup(): PersonalBankComposer {
@@ -637,19 +510,11 @@ export class PersonalBankClient {
     const resultMappers: Array<undefined | ((x: ABIReturn | undefined) => any)> = []
     return {
       /**
-       * Add a deposit(pay)uint64 method call against the PersonalBank contract
+       * Add a deposit(string)void method call against the PersonalBank contract
        */
-      deposit(params: CallParams<PersonalBankArgs['obj']['deposit(pay)uint64'] | PersonalBankArgs['tuple']['deposit(pay)uint64']> & {onComplete?: OnApplicationComplete.NoOpOC}) {
+      deposit(params: CallParams<PersonalBankArgs['obj']['deposit(string)void'] | PersonalBankArgs['tuple']['deposit(string)void']> & {onComplete?: OnApplicationComplete.NoOpOC}) {
         promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.deposit(params)))
-        resultMappers.push((v) => client.decodeReturnValue('deposit(pay)uint64', v))
-        return this
-      },
-      /**
-       * Add a withdraw()uint64 method call against the PersonalBank contract
-       */
-      withdraw(params: CallParams<PersonalBankArgs['obj']['withdraw()uint64'] | PersonalBankArgs['tuple']['withdraw()uint64']> & {onComplete?: OnApplicationComplete.NoOpOC}) {
-        promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.withdraw(params)))
-        resultMappers.push((v) => client.decodeReturnValue('withdraw()uint64', v))
+        resultMappers.push(undefined)
         return this
       },
       /**
@@ -688,32 +553,17 @@ export class PersonalBankClient {
 }
 export type PersonalBankComposer<TReturns extends [...any[]] = []> = {
   /**
-   * Calls the deposit(pay)uint64 ABI method.
+   * Calls the deposit(string)void ABI method.
    *
-  * Deposits funds into the personal bank.
-  The deposit amount is recorded in the sender's BoxMap.
-  If the sender already has a deposit, the amount is added to their existing balance.
+  * Creates a box named "github" and stores the GitHub handle in it
+  Only works if the box reference is declared in the transaction
 
    *
    * @param args The arguments for the contract call
    * @param params Any additional parameters for the call
    * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
    */
-  deposit(params?: CallParams<PersonalBankArgs['obj']['deposit(pay)uint64'] | PersonalBankArgs['tuple']['deposit(pay)uint64']>): PersonalBankComposer<[...TReturns, PersonalBankReturns['deposit(pay)uint64'] | undefined]>
-
-  /**
-   * Calls the withdraw()uint64 ABI method.
-   *
-  * Withdraws all funds from the sender's account.
-  This method transfers the entire balance of the sender's account back to them,
-  and resets their balance to zero. The sender must have a deposit to withdraw.
-
-   *
-   * @param args The arguments for the contract call
-   * @param params Any additional parameters for the call
-   * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
-   */
-  withdraw(params?: CallParams<PersonalBankArgs['obj']['withdraw()uint64'] | PersonalBankArgs['tuple']['withdraw()uint64']>): PersonalBankComposer<[...TReturns, PersonalBankReturns['withdraw()uint64'] | undefined]>
+  deposit(params?: CallParams<PersonalBankArgs['obj']['deposit(string)void'] | PersonalBankArgs['tuple']['deposit(string)void']>): PersonalBankComposer<[...TReturns, PersonalBankReturns['deposit(string)void'] | undefined]>
 
   /**
    * Makes a clear_state call to an existing instance of the PersonalBank smart contract.
